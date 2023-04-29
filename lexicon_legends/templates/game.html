@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io();
+            const roomKey = '{{ room_key }}';
+            let players = '{{ players }}';
+            const playersElement = document.getElementById('players');
+            const timerElement = document.getElementById('timer');
+
+            socket.emit('join', {room_key: roomKey});
+
+            socket.on('start_game', () => {
+                startTimer();
+            });
+
+            socket.on('update_players', (data) => {
+                players = data.players;
+                playersElement.textContent = `Players: ${players}`;
+            });
+
+            socket.on('update_timer', (data) => {
+                timerElement.textContent = `Timer: ${data.time}s`;
+            });
+
+            window.addEventListener('beforeunload', () => {
+                socket.emit('leave', {room_key: roomKey});
+            });
+
+            function startTimer() {
+                let time = 30;
+                timerElement.style.display = 'block';
+
+                setInterval(() => {
+                    time--;
+                    socket.emit('sync_timer', {room_key: roomKey, time: time});
+                }, 1000);
+            }
+        });
+    </script>
+</head>
+<br>
+<br>
+<h3>Game Room: {{ room_key }}</h3>
+<h3>Random Word: {{ word }}</h3>
+<h5 id="timer" style="display: none">Timer: 30s</h5>
+
+{% endblock content %}

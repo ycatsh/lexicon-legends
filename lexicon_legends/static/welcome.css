@@ -1,11 +1,7 @@
 @import url('fonts.css'); 
 
 body{
-    background-color: #FFFFFF;
-    background-image: url('imgs/bg.png');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100%;
+    background-color: #000000;
 }
 
 .welcome-text {
@@ -16,8 +12,8 @@ body{
 }
 
 .welcome-text h1{
-    font-family: "Archivo Black";
-    color: #898d96;
+    font-family: 'Five Fonts at Freddy';
+    color: #888888;
     font-size: 80px;
 }
 

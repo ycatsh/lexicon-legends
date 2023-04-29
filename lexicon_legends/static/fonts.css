@@ -1,4 +1,14 @@
 @font-face {
+    font-family: 'Five Fonts at Freddy';
+    src: url('fonts/five-fonts-freddy/FiveFontsatFreddysRegular.eot?#iefix') format('embedded-opentype'),
+         url('fonts/five-fonts-freddy/FiveFontsatFreddysRegular.eot'),
+         url('fonts/five-fonts-freddy/FiveFontsatFreddysRegular.woff') format('woff'), 
+         url('fonts/five-fonts-freddy/FiveFontsatFreddysRegular.woff2') format('woff2'), 
+         url('fonts/five-fonts-freddy/FiveFontsatFreddysRegular.ttf')  format('truetype'),
+         url('fonts/five-fonts-freddy/FiveFontsatFreddysRegular.svg') format('svg');
+}
+
+@font-face {
     font-family: 'Archivo Black';
     src: url('fonts/archivo-black/ArchivoBlack-Regular.eot?#iefix') format('embedded-opentype'),
          url('fonts/archivo-black/ArchivoBlack-Regular.eot'),
