@@ -1,0 +1,77 @@
+@import url('fonts.css'); 
+
+.pixel-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    width: 100vh;
+}
+
+.form-title {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+    word-spacing: 3px;
+}
+
+.pixel-form {
+    background-color: #111111;
+    border: 2px solid #2a2c2d;
+    padding: 20px;
+    width: 600px;
+}
+
+.form-control-label {
+    font-family: "Five Fonts at Freddy";
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.form-control {
+    background-color: #242627;
+    color: #ffffff;
+    font-size: 14px;
+    border: 2px solid #1ec83b;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.form-control:focus {
+    background-color: #242627; 
+    color: #ffffff; 
+}
+
+.btn {
+    font-family: "Five Fonts at Freddy";
+    font-size: 12px;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 6px 10px 3px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.bottom-text {
+    color: #ffffff;
+    text-align: left;
+    margin-top: -5%;
+    margin-left: 20px;
+}
+
+.bottom-text a {
+    color: #1ec83b;
+    text-decoration: none;
+}
+
+.bottom-text a:hover {
+    text-decoration: underline;
+}
+
+.form-check-label{
+    color: #ffffff;
+}
