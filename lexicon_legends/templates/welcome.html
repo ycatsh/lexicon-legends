@@ -1,0 +1,36 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='layout.css') }}">
+    <link rel="icon" type="image/x-icon" href="../static/logos/favicon.png?v=24">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='welcome.css') }}">
+    <title>Lexicon Legends</title>
+</head>
+
+<body>
+  <header>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <nav class="nav-container">
+
+      <ul class="nav-link-left">
+        <li><a class="nav-item nav-link" href="{{ url_for('welcome') }}">Lexicon Legends</a></li>
+        <li><a class="nav-item nav-link" href="{{ url_for('play') }}">play</a></li>
+        <li><a class="nav-item nav-link" href="{{ url_for('about') }}">about</a></li>
+      </ul>
+      
+      <ul class="nav-link-right">
+        {% if current_user.is_authenticated %}
+        <li><a class="nav-item nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+        <li><a class="nav-item nav-link" href="{{ url_for('signout') }}">Sign Out</a></li>
+        {% else %}
+        <li><a class="nav-item nav-link" href="{{ url_for('signin') }}">Sign In </a></li>
+        <li><a class="nav-item nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+
+    <div class="bg"></div>
+    <div class="welcome-text">
+        <h1>Lexicon Legends</h1>
+        <p></p>
+    </div>
+</body>

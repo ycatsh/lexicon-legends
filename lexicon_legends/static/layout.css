@@ -1,0 +1,166 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fafafa; 
+    margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #444444;
+}
+
+header {
+    justify-content: space-between;
+    background-color: #111111;
+    padding: 0px 5%;
+}
+
+legend {
+    margin-top: 2%;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-link-left, .nav-link-center {
+    list-style: none;
+}
+
+.nav-link-center {
+    margin-left: 2%;
+}
+
+.nav-link-left li, .nav-link-right li, .nav-link-center li {
+    display: inline-block;
+    overflow: hidden;
+    padding: 0px 20px;
+    margin-top: 20px;
+}
+
+.nav-link-left li a, .nav-link-right li a, .nav-link-center li a{
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.nav-container a{
+    transition: all 0.3s ease;
+}
+
+.nav-container a:hover{
+    color: #5e6266;
+}
+
+a{
+    text-decoration: none;
+    color: #428bca;
+}
+
+.alert {
+    margin-top: 2%;
+    margin-left: 25%;
+    margin-right: -25%;
+}
+
+.content-section {
+    padding: 10px 20px;
+    margin-top: 5%;
+    margin-bottom: 20px;
+}
+
+
+#gen-btn{
+    margin-left: 2%;
+}
+
+.form-group{
+    margin-top: 2%;
+}
+
+#own-list {
+    margin-bottom: 5%;
+}
+
+#key-list {
+    margin-top: 2.5%;
+    margin-bottom: 3%;
+}
+
+.form-check{
+    margin-top: 1%;
+}
+
+.text-muted{
+    font-size: 14px;
+}
+
+.bottom-text {
+    font-size: 14px;
+    margin-top: -4%;
+    margin-left: 2.2%;
+}
+
+
+.btn {
+    margin-bottom: 3%;
+    border: none;
+    background-color: #35383a;
+}
+
+#access-btn{
+    margin-top: -1%;
+}
+
+#upload-btn{
+    margin-top: 2%;
+}
+
+.pdf-list{
+    margin-top: 1.5%;
+    margin-left: 2%;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+}
+
+td form{
+    display: inline;
+}
+
+#upload-section{
+    margin-top: 2%;
+}
+
+.creators .links{
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 18px;
+}
+
+.creators{
+    margin-top: -2%;
+}
+
+.container{
+    padding-right: 70px;
+}
+
+
+
+
