@@ -18,18 +18,18 @@
     <nav class="nav-container">
 
       <ul class="nav-link-left">
-        <li><a class="nav-item nav-link" href="{{ url_for('welcome') }}">Lexicon Legends</a></li>
         <li><a class="nav-item nav-link" href="{{ url_for('play') }}">play</a></li>
+        <li><a class="nav-item nav-link" href="{{ url_for('create') }}">create game</a></li>
         <li><a class="nav-item nav-link" href="{{ url_for('about') }}">about</a></li>
       </ul>
       
       <ul class="nav-link-right">
         {% if current_user.is_authenticated %}
-        <li><a class="nav-item nav-link" href="{{ url_for('profile') }}">Profile</a></li>
-        <li><a class="nav-item nav-link" href="{{ url_for('signout') }}">Sign Out</a></li>
+        <li><a class="nav-item nav-link" href="{{ url_for('profile') }}">profile</a></li>
+        <li><a class="nav-item nav-link" href="{{ url_for('signout') }}">sign out</a></li>
         {% else %}
-        <li><a class="nav-item nav-link" href="{{ url_for('signin') }}">Sign In </a></li>
-        <li><a class="nav-item nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>
+        <li><a class="nav-item nav-link" href="{{ url_for('signin') }}">sign in </a></li>
+        <li><a class="nav-item nav-link" href="{{ url_for('signup') }}">sign up</a></li>
         {% endif %}
       </ul>
     </nav>

@@ -1,3 +1,5 @@
+@import url('fonts.css'); 
+
 *{
     padding: 0;
     margin: 0;
@@ -5,18 +7,26 @@
 }
 
 body {
-    background-color: #fafafa; 
+    background-color: #000000;
     margin: 0 auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #444444;
+    font-family: 'Five Fonts at Freddy';
+    color: #888888;
+}
+
+p{
+    font-size: 18px;
+    color: #2a2c2d;
 }
 
 header {
+    font-family: 'Five Fonts at Freddy';
+    letter-spacing: 1px;
     justify-content: space-between;
     background-color: #111111;
-    padding: 0px 5%;
+    padding: 0px 8%;
 }
 
 legend {
@@ -57,12 +67,12 @@ legend {
 }
 
 .nav-container a:hover{
-    color: #5e6266;
+    color: #2a2c2d;
 }
 
 a{
     text-decoration: none;
-    color: #428bca;
+    color: #1ec83b;
 }
 
 .alert {
@@ -77,22 +87,8 @@ a{
     margin-bottom: 20px;
 }
 
-
-#gen-btn{
-    margin-left: 2%;
-}
-
 .form-group{
     margin-top: 2%;
-}
-
-#own-list {
-    margin-bottom: 5%;
-}
-
-#key-list {
-    margin-top: 2.5%;
-    margin-bottom: 3%;
 }
 
 .form-check{
@@ -109,24 +105,10 @@ a{
     margin-left: 2.2%;
 }
 
-
 .btn {
     margin-bottom: 3%;
     border: none;
     background-color: #35383a;
-}
-
-#access-btn{
-    margin-top: -1%;
-}
-
-#upload-btn{
-    margin-top: 2%;
-}
-
-.pdf-list{
-    margin-top: 1.5%;
-    margin-left: 2%;
 }
 
 table {
@@ -147,10 +129,14 @@ td form{
     margin-top: 2%;
 }
 
-.creators .links{
+.creators, .links{
     align-items: center;
     justify-content: space-evenly;
     font-size: 18px;
+}
+
+.links{
+    margin-top: 3%;
 }
 
 .creators{
@@ -160,7 +146,3 @@ td form{
 .container{
     padding-right: 70px;
 }
-
-
-
-
