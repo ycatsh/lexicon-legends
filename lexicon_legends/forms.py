@@ -10,7 +10,6 @@ class SignUpForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8, max=32)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    key = StringField('Generated Secret Key', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -23,14 +22,19 @@ class SignUpForm(FlaskForm):
         if user:
             raise ValidationError('That email is already in use')
                                                         
-    def validate_key(self, key):
-        user = User.query.filter_by(key=key.data).first()
-        if user:
-            raise ValidationError('That key is already in use, please generate another one')
-                                                        
                                                 
 class SignInForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
+
+
+class CreateRoom(FlaskForm):
+    key = StringField('Game Room Key', validators=[DataRequired(), Length(min=6, max=12)])
+    submit = SubmitField('Start Game')
+
+
+class JoinRoom(FlaskForm):
+    key = StringField('Enter Room Key', validators=[DataRequired()])
+    submit = SubmitField('Join Game')
