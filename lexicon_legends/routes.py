@@ -4,7 +4,6 @@ from flask import render_template, url_for, flash, redirect, request
 from lexicon_legends.similarity import calculate_similarity
 from lexicon_legends import app, db, bcrypt, socketio
 from flask_socketio import join_room, leave_room
-from lexicon_legends.keys import generate_key
 from lexicon_legends.models import User
 import random
 
@@ -54,7 +53,7 @@ def create():
 @app.route('/game/<room_key>')
 def game(room_key):
     players = len(rooms[room_key][0])
-    return render_template('game.html', room_key=room_key, players=players, word=rooms[room_key][1][0])
+    return render_template('game.html', room_key=room_key, players=players, word=rooms[room_key][1][0], current_user=current_user)
 
 
 @socketio.on('join')
@@ -79,7 +78,13 @@ def on_sync_timer(data):
     time = data['time']
     socketio.emit('update_timer', {'time': time}, room=room_key)
 
-                                                
+@socketio.on('send_word')
+def on_send_word(data):
+    room_key = data['room_key']
+    word = data['word']
+    sender = data['sender']
+    socketio.emit('receive_word', {'word': word, 'sender': sender}, room=room_key)
+
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():

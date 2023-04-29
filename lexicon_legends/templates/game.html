@@ -31,13 +31,36 @@
 
             function startTimer() {
                 let time = 30;
+                document.getElementById("wordInput").disabled = false;
                 timerElement.style.display = 'block';
 
                 setInterval(() => {
                     time--;
+                    if (time < 0){
+                        document.getElementById("wordInput").disabled = true;
+                        return;
+                    };
                     socket.emit('sync_timer', {room_key: roomKey, time: time});
                 }, 1000);
             }
+            const wordInput = document.getElementById('wordInput');
+            const submitWord = document.getElementById('submitWord');
+            const typedWords = document.getElementById('typedWords');
+
+            submitWord.addEventListener('click', () => {
+                const typedWord = wordInput.value.trim();
+                if (typedWord) {
+                    socket.emit('send_word', { room_key: roomKey, word: typedWord, sender: '{{ current_user.username }}' });
+                    wordInput.value = '';
+                }
+            });
+
+            socket.on('receive_word', (data) => {
+                const newWord = document.createElement('p');
+                newWord.textContent = data.word + '-' + data.sender;
+                typedWords.appendChild(newWord);
+            });
+
         });
     </script>
 </head>
@@ -46,5 +69,9 @@
 <h3>Game Room: {{ room_key }}</h3>
 <h3>Random Word: {{ word }}</h3>
 <h5 id="timer" style="display: none">Timer: 30s</h5>
+
+<input type="text" id="wordInput" placeholder="enter word" disabled/>
+<button id="submitWord">submit word </button>
+<div id="typedWords"></div>
 
 {% endblock content %}
