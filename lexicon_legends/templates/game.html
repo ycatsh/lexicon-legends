@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='box.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -22,7 +23,7 @@
             });
 
             socket.on('update_timer', (data) => {
-                timerElement.textContent = `Timer: ${data.time}s`;
+                timerElement.textContent = `timer: ${data.time}s`;
             });
 
             window.addEventListener('beforeunload', () => {
@@ -38,6 +39,8 @@
                     time--;
                     if (time < 0){
                         document.getElementById("wordInput").disabled = true;
+                        var id = document.getElementById("winner");
+                        id.style.display = "block";
                         return;
                     };
                     socket.emit('sync_timer', {room_key: roomKey, time: time});
@@ -46,32 +49,44 @@
             const wordInput = document.getElementById('wordInput');
             const submitWord = document.getElementById('submitWord');
             const typedWords = document.getElementById('typedWords');
+            
 
             submitWord.addEventListener('click', () => {
                 const typedWord = wordInput.value.trim();
                 if (typedWord) {
-                    socket.emit('send_word', { room_key: roomKey, word: typedWord, sender: '{{ current_user.username }}' });
+                    socket.emit('send_word', { room_key: roomKey, word: typedWord, sender: '{{ current_user.username }}', winner: ''});
                     wordInput.value = '';
                 }
             });
 
             socket.on('receive_word', (data) => {
                 const newWord = document.createElement('p');
-                newWord.textContent = data.word + '-' + data.sender;
+
+                var winner = data.winner
+                document.getElementById("win").innerHTML = winner;
+
+                newWord.textContent = data.sender + ' - ' + data.word;
                 typedWords.appendChild(newWord);
             });
 
         });
     </script>
 </head>
-<br>
-<br>
-<h3>Game Room: {{ room_key }}</h3>
-<h3>Random Word: {{ word }}</h3>
-<h5 id="timer" style="display: none">Timer: 30s</h5>
+<div class="pixel-form-container" id="game-box">
+    <div class="content-section pixel-form">
+        <h6>game: {{ room_key }}</h6>
+        <br>
+        <h5>random word: <span style="color: #1ec83b">{{ word }}</span></h5>
+        <br>
+        <h5 id="timer" style="display: none">timer: 30s</h5>
 
-<input type="text" id="wordInput" placeholder="enter word" disabled/>
-<button id="submitWord">submit word </button>
+        <input class="form-control form-control-sm" type="text" id="wordInput" placeholder=" Game Hasn't Started/Ended" disabled/>
+        <button class="btn btn-primary btn-sm" id="submitWord">submit word </button>
+        <br>
+        <h6 id="winner" style="display: none">winner: <span id="win" style="color: #209dce"></span></h6>
+    </div>
+</div>
+
 <div id="typedWords"></div>
 
 {% endblock content %}

@@ -1,6 +1,6 @@
 from lexicon_legends.forms import SignInForm, SignUpForm, CreateRoom, JoinRoom
 from flask_login import login_user, current_user, logout_user, login_required
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, session
 from lexicon_legends.similarity import calculate_similarity
 from lexicon_legends import app, db, bcrypt, socketio
 from flask_socketio import join_room, leave_room
@@ -10,7 +10,7 @@ import random
 
 with open('lexicon_legends/static/data/words.txt') as file:
     words = [i for i in file.read().strip().split('\n')]
-                           
+               
                                                                                                 
 @app.route('/')
 def welcome():
@@ -42,7 +42,7 @@ def create():
         room_key = form.key.data
         random_word = random.choice(words)
         if room_key not in rooms:
-            rooms[room_key] = [[], [random_word]]
+            rooms[room_key] = [[], [random_word], []]
             return redirect(url_for('game', room_key=room_key))
         else:
             form.key.errors.append('Room key already exists.')
@@ -53,7 +53,8 @@ def create():
 @app.route('/game/<room_key>')
 def game(room_key):
     players = len(rooms[room_key][0])
-    return render_template('game.html', room_key=room_key, players=players, word=rooms[room_key][1][0], current_user=current_user)
+      
+    return render_template('game.html', room_key=room_key, players=players, word=rooms[room_key][1][0])
 
 
 @socketio.on('join')
@@ -83,7 +84,31 @@ def on_send_word(data):
     room_key = data['room_key']
     word = data['word']
     sender = data['sender']
-    socketio.emit('receive_word', {'word': word, 'sender': sender}, room=room_key)
+    rooms[room_key][2].append((sender, word))
+
+    words = rooms[room_key][2]
+
+    word_scores = {}
+    winner = ''  
+
+    for key, value in words:
+        if key in word_scores:
+            word_scores[key] += calculate_similarity(value, rooms[room_key][1][0])
+        else: 
+            word_scores[key] = calculate_similarity(value, rooms[room_key][1][0])
+            
+    keys = list(word_scores.keys())
+
+    if len(keys) == 2:
+        if word_scores[keys[0]] > word_scores[keys[1]]:
+            winner = keys[0]
+        elif word_scores[keys[0]] < word_scores[keys[1]]:
+            winner = keys[1]
+        else:
+            winner = 'Draw'
+    
+    socketio.emit('receive_word', {'word': word, 'sender': sender, 'winner': winner}, room=room_key)
+
 
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
