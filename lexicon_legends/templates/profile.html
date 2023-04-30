@@ -1,16 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
-<form method="POST" action="">
-    <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Your Profile</legend>
-
-        <div class="form-group">
-            <h5 class="form-control-label">Username</h5>
-            {{ current_user.username }}
-        </div>
-
-        <div class="form-group">
-            <h5 class="form-control-label">Email</h5>
-            {{ current_user.email }}
-        </div>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='box.css') }}">
+</head> 
+<div class="pixel-form-container" id="game-box">
+    <div class="content-section pixel-form">
+        <h3>your profile</h3>
+        <br>
+        <form method="POST" action="">
+            <div class="form-group">
+                <h5 style="color: #1ec83b">Username</h5>
+                <h6 style="color: white">{{ current_user.username }}</h6>
+            </div>
+        <br>
+            <div class="form-group">
+                <h5 style="color: #1ec83b">Email</h5>
+                <h6 style="color: white">{{ current_user.email }}</h6>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock content %}
