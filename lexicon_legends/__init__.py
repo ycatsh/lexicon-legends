@@ -21,3 +21,16 @@ login_manager.login_view = 'signin'
 app.app_context().push()
 
 from lexicon_legends import routes
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            

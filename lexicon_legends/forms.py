@@ -38,3 +38,16 @@ class CreateRoom(FlaskForm):
 class JoinRoom(FlaskForm):
     key = StringField('Enter Room Key', validators=[DataRequired()])
     submit = SubmitField('Join Game')
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
