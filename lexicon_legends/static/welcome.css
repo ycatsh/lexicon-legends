@@ -1,14 +1,19 @@
 @import url('fonts.css'); 
 
-body{
+
+.bg{
     background-color: #000000;
+}
+
+header{
+    height: 70px;
 }
 
 .welcome-text {
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-top: 17%;
+    margin-top: 15%;
 }
 
 .welcome-text h1{
@@ -21,3 +26,4 @@ body{
     color: #414347;
     font-size: 24px;
 }
+  
