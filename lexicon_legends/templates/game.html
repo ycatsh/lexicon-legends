@@ -13,17 +13,26 @@
 <div class="container">
     <div class="pixel-form-container" id="game-box">
         <div class="content-section pixel-form">
-            <h6>game: {{ room_key }}</h6>
+            <h6>game: <span style="color: #ffffff">{{ room_key }}</span></h6>
             <br>
-            <h5>random word: <span style="color: #1ec83b">{{ word }}</span></h5>
+            <h5>random word: <span id="random_word" style="color: #1ec83b">{{ word }}</span></h5>
             <br>
             <h5 id="timer" style="display: none">timer: 30s</h5>
 
-            <input class="form-control form-control-sm" type="text" id="wordInput" placeholder=" Game Hasn't Started/Ended" disabled/>
-            <button class="btn btn-primary btn-sm" id="submitWord">submit word </button>
+            <h5 id="started" style="display: block">waiting for players</h5>
+
+            <h5 id="ended" style="display: none; color: #972921">game has ended</h5>
+
+            <input style="display: none" class="form-control form-control-sm" type="text" id="wordInput"/>
+            <p id="same-word" style="display:none; color: #972921">your word cannot be the same as the random word</p>
+
+            <button style="display: none" class="btn btn-primary btn-sm" id="submitWord">submit word or press enter</button>
             <script src="../static/js/enter.js"></script>
             <br>
             <h6 id="winner" style="display: none">winner: <span id="win" style="color: #209dce"></span></h6>
+            <br>
+            <h6 id="score1" style="display: none">your score: <span id="your_score" style="color: #ffffff"></span></h6>
+            <h6 id="score2" style="display: none">opponent's score: <span id="opps_score" style="color: #ffffff"></span></h6>
         </div>
     </div>
 

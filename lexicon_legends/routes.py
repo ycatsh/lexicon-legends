@@ -84,30 +84,41 @@ def on_send_word(data):
     room_key = data['room_key']
     word = data['word']
     sender = data['sender']
-    rooms[room_key][2].append((sender, word))
 
+    rooms[room_key][2].append((sender, word))
     words = rooms[room_key][2]
 
     word_scores = {}
-    winner = ''  
+    word_counts = {}
+    winner = ['', 0]
+    loser = ['', 0]
 
     for key, value in words:
         if key in word_scores:
             word_scores[key] += calculate_similarity(value, rooms[room_key][1][0])
-        else: 
+            word_counts[key] += 1
+        else:
             word_scores[key] = calculate_similarity(value, rooms[room_key][1][0])
-            
+            word_counts[key] = 1
+
     keys = list(word_scores.keys())
 
     if len(keys) == 2:
-        if word_scores[keys[0]] > word_scores[keys[1]]:
-            winner = keys[0]
-        elif word_scores[keys[0]] < word_scores[keys[1]]:
-            winner = keys[1]
+        avg_score_1 = word_scores[keys[0]] / word_counts[keys[0]]
+        avg_score_2 = word_scores[keys[1]] / word_counts[keys[1]]
+
+        if avg_score_1 > avg_score_2:
+            winner = [keys[0], round(avg_score_1, 2)]
+            loser = [keys[1], round(avg_score_2, 2)]
+        elif avg_score_1 < avg_score_2:
+            winner = [keys[1], round(avg_score_2, 2)]
+            loser = [keys[0], round(avg_score_1, 2)]
         else:
             winner = 'Draw'
-    
-    socketio.emit('receive_word', {'word': word, 'sender': sender, 'winner': winner}, room=room_key)
+
+    socketio.emit('receive_word', {'word': word, 'sender': sender, 
+                                   'winner': winner[0], 'wscore': winner[1], 
+                                   'loser': loser[0], 'lscore': loser[1]}, room=room_key)
 
 
 @app.route('/profile', methods=['GET', 'POST'])
