@@ -1,92 +1,38 @@
 {% extends "layout.html" %}
 {% block content %}
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='box.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='game.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const socket = io();
-            const roomKey = '{{ room_key }}';
-            let players = '{{ players }}';
-            const playersElement = document.getElementById('players');
-            const timerElement = document.getElementById('timer');
-
-            socket.emit('join', {room_key: roomKey});
-
-            socket.on('start_game', () => {
-                startTimer();
-            });
-
-            socket.on('update_players', (data) => {
-                players = data.players;
-                playersElement.textContent = `Players: ${players}`;
-            });
-
-            socket.on('update_timer', (data) => {
-                timerElement.textContent = `timer: ${data.time}s`;
-            });
-
-            window.addEventListener('beforeunload', () => {
-                socket.emit('leave', {room_key: roomKey});
-            });
-
-            function startTimer() {
-                let time = 30;
-                document.getElementById("wordInput").disabled = false;
-                timerElement.style.display = 'block';
-
-                setInterval(() => {
-                    time--;
-                    if (time < 0){
-                        document.getElementById("wordInput").disabled = true;
-                        var id = document.getElementById("winner");
-                        id.style.display = "block";
-                        return;
-                    };
-                    socket.emit('sync_timer', {room_key: roomKey, time: time});
-                }, 1000);
-            }
-            const wordInput = document.getElementById('wordInput');
-            const submitWord = document.getElementById('submitWord');
-            const typedWords = document.getElementById('typedWords');
-            
-
-            submitWord.addEventListener('click', () => {
-                const typedWord = wordInput.value.trim();
-                if (typedWord) {
-                    socket.emit('send_word', { room_key: roomKey, word: typedWord, sender: '{{ current_user.username }}', winner: ''});
-                    wordInput.value = '';
-                }
-            });
-
-            socket.on('receive_word', (data) => {
-                const newWord = document.createElement('p');
-
-                var winner = data.winner
-                document.getElementById("win").innerHTML = winner;
-
-                newWord.textContent = data.sender + ' - ' + data.word;
-                typedWords.appendChild(newWord);
-            });
-
-        });
+        const py_roomKey = '{{ room_key }}';
+        const py_players = '{{ players }}';
+        const py_currentUser = '{{ current_user.username }}';
     </script>
+    <script src="../static/js/game.js"></script>
 </head>
-<div class="pixel-form-container" id="game-box">
-    <div class="content-section pixel-form">
-        <h6>game: {{ room_key }}</h6>
-        <br>
-        <h5>random word: <span style="color: #1ec83b">{{ word }}</span></h5>
-        <br>
-        <h5 id="timer" style="display: none">timer: 30s</h5>
+<div class="container">
+    <div class="pixel-form-container" id="game-box">
+        <div class="content-section pixel-form">
+            <h6>game: {{ room_key }}</h6>
+            <br>
+            <h5>random word: <span style="color: #1ec83b">{{ word }}</span></h5>
+            <br>
+            <h5 id="timer" style="display: none">timer: 30s</h5>
 
-        <input class="form-control form-control-sm" type="text" id="wordInput" placeholder=" Game Hasn't Started/Ended" disabled/>
-        <button class="btn btn-primary btn-sm" id="submitWord">submit word </button>
-        <br>
-        <h6 id="winner" style="display: none">winner: <span id="win" style="color: #209dce"></span></h6>
+            <input class="form-control form-control-sm" type="text" id="wordInput" placeholder=" Game Hasn't Started/Ended" disabled/>
+            <button class="btn btn-primary btn-sm" id="submitWord">submit word </button>
+            <script src="../static/js/enter.js"></script>
+            <br>
+            <h6 id="winner" style="display: none">winner: <span id="win" style="color: #209dce"></span></h6>
+        </div>
+    </div>
+
+    <div class="pixel-form-container" id="word-box">
+        <div class="content-section pixel-form">
+            <table class="typed-words-table">
+                <tbody id="typedWordsTable"></tbody>
+            </table>
+        </div>
     </div>
 </div>
-
-<div id="typedWords"></div>
-
 {% endblock content %}
