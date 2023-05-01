@@ -9,9 +9,14 @@
   <header>
     <nav class="nav-container">
       <ul class="nav-link-left">
+        {% if current_user.is_authenticated %}
         <li><a class="nav-item nav-link" href="{{ url_for('play') }}">play</a></li>
         <li><a class="nav-item nav-link" href="{{ url_for('create') }}">create game</a></li>
         <li><a class="nav-item nav-link" href="{{ url_for('about') }}">about</a></li>
+        {% else %}
+        <li><a class="nav-item nav-link" href="{{ url_for('welcome') }}">lexicon legends</a></li>
+        <li><a class="nav-item nav-link" href="{{ url_for('about') }}">about</a></li>
+        {% endif %}
       </ul>
       
       <ul class="nav-link-right">
@@ -27,7 +32,6 @@
   </header>
 
 <div class="welcome-text">
-    <img src="{{ url_for('static', filename='logos/logo.png') }}" alt="Lexicon Legends Logo" class="logo">
     <h1 class="welcome-title">Lexicon Legends</h1>
     <p class="welcome-subtitle">The <span style="color: #1ec83b">Ultimate Word PvP</span> Gaming Experience</p>
 </div>

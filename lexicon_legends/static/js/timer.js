@@ -17,7 +17,6 @@ function updateTimer() {
     if (duration_seconds <= 0) {
         clearInterval(timer_interval);
         timer.innerHTML = "Game Over";
-        document.getElementById("word_form").disabled = true;
     }
 }
 
