@@ -21,7 +21,7 @@ Challenge your friends in this 1v1, real-time, NLP-powered, word based game, to 
 
 ## End-User Flow Chart
 
-![llegends-flow-chart](https://cdn.discordapp.com/attachments/730302525823123491/1102122393201299496/image.png)
+![llegends-flow-chart](https://user-images.githubusercontent.com/91330011/235458183-dffcaa35-e14e-4447-86b4-0def72d30681.png)
   
 
 ## Screenshots
