@@ -22,8 +22,8 @@
 }
 
 #word-box {
-    overflow-y: auto;
     max-height: 50vh;
+    overflow-y: scroll;
 }
 
 .form-title {

@@ -18,9 +18,14 @@
     <nav class="nav-container">
 
       <ul class="nav-link-left">
+        {% if current_user.is_authenticated %}
         <li><a class="nav-item nav-link" href="{{ url_for('play') }}">play</a></li>
         <li><a class="nav-item nav-link" href="{{ url_for('create') }}">create game</a></li>
         <li><a class="nav-item nav-link" href="{{ url_for('about') }}">about</a></li>
+        {% else %}
+        <li><a class="nav-item nav-link" href="{{ url_for('welcome') }}">lexicon legends</a></li>
+        <li><a class="nav-item nav-link" href="{{ url_for('about') }}">about</a></li>
+        {% endif %}
       </ul>
       
       <ul class="nav-link-right">
